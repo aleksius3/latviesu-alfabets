@@ -1,0 +1,24 @@
+{
+  "name": "Latviešu alfabēts bērniem",
+  "short_name": "Latviešu ABC",
+  "description": "Vienkāršas pilnekrāna kartītes latviešu alfabēta apguvei.",
+  "lang": "lv",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fff7e8",
+  "theme_color": "#fff7e8",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
