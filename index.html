@@ -1,31 +1,45 @@
 <!doctype html>
 <html lang="lv">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#fff7e8">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Latviešu ABC">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#fff8ec" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Latviešu ABC" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
   <title>Latviešu alfabēts</title>
 </head>
 <body>
   <main id="app">
     <header class="topbar">
-      <button id="prevBtn" class="icon-btn" aria-label="Iepriekšējais burts">‹</button>
+      <button id="prevBtn" class="round-button" aria-label="Iepriekšējais burts">←</button>
       <div class="counter"><span id="currentNum">1</span> / <span id="totalNum">33</span></div>
-      <button id="soundBtn" class="icon-btn" aria-label="Klausīties">🔊</button>
+      <button id="soundBtn" class="round-button" aria-label="Klausīties">🔊</button>
     </header>
 
-    <section id="card" class="card" tabindex="0" aria-live="polite">
-      <div id="letter" class="letter">A <span>a</span></div>
-      <div id="picture" class="picture" aria-hidden="true">👁️</div>
+    <section id="mainCard" class="main-card" aria-live="polite">
+      <div class="letter-wrap">
+        <span id="upperLetter" class="upper-letter">A</span>
+        <span id="lowerLetter" class="lower-letter">a</span>
+      </div>
+
+      <div class="picture-wrap">
+        <img id="mainImage" alt="" />
+        <div id="fallbackPicture" class="fallback-picture" aria-hidden="true">👁️</div>
+      </div>
+
       <div id="word" class="word">acs</div>
-      <div class="hint">Pieskaries vai velc ← →</div>
     </section>
+
+    <section class="carousel-area" aria-label="Alfabēta kartītes">
+      <div id="carousel" class="carousel"></div>
+      <div class="carousel-rail"></div>
+    </section>
+
+    <div class="hint">Pieskaries vai velc ← →</div>
   </main>
 
   <script src="app.js"></script>
