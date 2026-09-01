@@ -86,9 +86,32 @@ function renderLearn(){
   const mc=$("mainCard");
   mc.dataset.theme=String(index%6);
   $("upperLetter").textContent=item.upper;$("lowerLetter").textContent=item.lower;$("word").textContent=item.word;
-  mc.classList.remove("card-change");$("mainImage").classList.remove("image-change");$("upperLetter").classList.remove("letter-change");
+
+  const phrases=[
+    "Klausies un atkārto!",
+    "Super! Turpinām!",
+    "Pavelc uz nākamo!",
+    "Atceries šo burtu!",
+    "Malacis! ⭐",
+    "Vēl viens burts!"
+  ];
+  if($("robotSpeech")) $("robotSpeech").textContent=phrases[index%phrases.length];
+
+  const journeyDots=[...document.querySelectorAll(".journey-dot")];
+  const pos=(index%6);
+  journeyDots.forEach((d,i)=>d.classList.toggle("done",i<Math.min(pos,journeyDots.length)));
+  const jsStar=document.querySelector(".journey-star");
+  if(jsStar) jsStar.classList.toggle("active",pos>=3);
+
+  mc.classList.remove("card-change");
+  $("mainImage").classList.remove("image-change");
+  $("upperLetter").classList.remove("letter-change");
+  $("word").classList.remove("word-change");
   void mc.offsetWidth;
-  mc.classList.add("card-change");$("mainImage").classList.add("image-change");$("upperLetter").classList.add("letter-change");
+  mc.classList.add("card-change");
+  $("mainImage").classList.add("image-change");
+  $("upperLetter").classList.add("letter-change");
+  $("word").classList.add("word-change");
   if($("learnProgressFill")) $("learnProgressFill").style.width=`${(index+1)/cards.length*100}%`;
   const tips=["Pieskaries kartītei!","Pavelc pa kreisi vai pa labi!","Nospied 🔊 un atkārto!","Tu vari izvēlēties burtu apakšā!"];
   if($("mascotTipText")) $("mascotTipText").textContent=tips[index%tips.length];
@@ -130,6 +153,13 @@ function answerQuiz(btn,chosen){
   if(chosen===quizCorrectIndex){
     quizAnswered=true;btn.classList.add("correct");score++;streak++;
     $("quizFeedback").textContent=["Pareizi! ⭐","Malacis! 🌟","Super! 🎉","Lieliski! ⭐"][streak%4];
+    const fly=document.createElement("div");
+    fly.className="reward-fly";fly.textContent="⭐";
+    const r=btn.getBoundingClientRect();
+    fly.style.left=(r.left+r.width/2-15)+"px";
+    fly.style.top=(r.top+r.height/2-15)+"px";
+    document.body.appendChild(fly);
+    setTimeout(()=>fly.remove(),950);
     $("quizFeedback").className="feedback good";$("nextQuestionBtn").classList.remove("hidden");playSuccessTone();saveProgress();
     if(streak%5===0)celebrate();
   }else{
@@ -205,4 +235,4 @@ $("mainCard").addEventListener("touchend",e=>{if(startX===null)return;const t=e.
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();dx<0?nextLearn():prevLearn()}},{passive:false});
 
 createCarousel();saveProgress();renderLearn();showScreen("homeScreen");
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=8.2").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=9").catch(()=>{}))}

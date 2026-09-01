@@ -9,11 +9,15 @@
   <meta name="apple-mobile-web-app-title" content="Latviešu ABC">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css?v=8.2">
+  <link rel="stylesheet" href="style.css?v=9">
   <title>Latviešu alfabēts</title>
 </head>
 <body>
 <main id="app">
+  <div class="ambient" aria-hidden="true">
+    <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
+    <i class="spark s1">★</i><i class="spark s2">●</i><i class="spark s3">✦</i>
+  </div>
   <header class="app-header">
     <button id="homeBtn" class="round-btn hidden" type="button" aria-label="Sākums">⌂</button>
     <div class="brand">Latviešu alfabēts</div>
@@ -60,6 +64,10 @@
 
   <section id="learnScreen" class="screen">
     <div class="learn-stage">
+      <div id="learnRobot" class="learn-robot">
+        <span class="robot-face">🤖</span>
+        <span id="robotSpeech" class="robot-speech">Klausies un atkārto!</span>
+      </div>
       <article id="mainCard" class="main-card">
         <div class="letter-box">
           <span id="upperLetter" class="upper-letter">A</span>
@@ -72,7 +80,11 @@
       <div class="counter-pill">
         <span id="currentNum">1</span> / <span id="totalNum">33</span>
       </div>
-      <div class="learn-progress-track"><div id="learnProgressFill"></div></div>
+      <div class="journey">
+        <span class="journey-dot"></span><span class="journey-dot"></span><span class="journey-dot"></span>
+        <span class="journey-star">⭐</span>
+        <span class="journey-dot"></span><span class="journey-dot"></span>
+      </div>
       <div id="mascotTip" class="mascot-tip"><span class="mini-mascot">🤖</span><span id="mascotTipText">Pieskaries kartītei!</span></div>
     </div>
 
@@ -147,6 +159,6 @@
   </div>
   <div id="confetti" class="confetti"></div>
 </main>
-<script src="app.js?v=8.2"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

@@ -594,3 +594,203 @@ body{
   #learnScreen .mini-card{height:59px}
   #learnScreen .mascot-tip{display:none}
 }
+
+
+/* ===== V9 GAME FEEL ===== */
+:root{
+  --scene1:#eef8e8;
+  --scene2:#f8fff4;
+  --accent:#4b9f2d;
+}
+
+/* ambient motion */
+.ambient{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(1px);opacity:.45;animation:floatBlob 12s ease-in-out infinite}
+.b1{width:180px;height:180px;left:-75px;top:18%;background:rgba(112,188,79,.12)}
+.b2{width:220px;height:220px;right:-100px;top:48%;background:rgba(243,154,40,.10);animation-delay:-3s}
+.b3{width:160px;height:160px;left:18%;bottom:-70px;background:rgba(96,130,230,.09);animation-delay:-6s}
+.spark{position:absolute;font-style:normal;opacity:.20;animation:floatSpark 8s ease-in-out infinite}
+.s1{left:8%;top:20%;font-size:28px;color:#efb23a}
+.s2{right:10%;top:30%;font-size:22px;color:#6aa44a;animation-delay:-2s}
+.s3{right:16%;bottom:18%;font-size:30px;color:#8b67c8;animation-delay:-5s}
+@keyframes floatBlob{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(18px,-22px,0) scale(1.07)}}
+@keyframes floatSpark{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(12deg)}}
+
+/* learning robot */
+.learn-robot{
+  position:absolute;
+  left:8px;
+  top:65px;
+  z-index:8;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  pointer-events:none;
+  animation:robotIdle 3.5s ease-in-out infinite;
+}
+.robot-face{
+  width:42px;height:42px;border-radius:14px;
+  display:grid;place-items:center;font-size:27px;
+  background:rgba(255,255,255,.92);
+  border:2px solid rgba(75,159,45,.16);
+  box-shadow:0 7px 15px rgba(40,60,30,.08);
+}
+.robot-speech{
+  max-width:135px;
+  background:#fff7cc;
+  border:2px solid #f0d66d;
+  color:#6a5d3e;
+  border-radius:15px 15px 15px 4px;
+  padding:7px 9px;
+  font-size:10px;
+  font-weight:900;
+  box-shadow:0 7px 15px rgba(100,75,20,.07);
+}
+@keyframes robotIdle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
+
+/* scene themes */
+#mainCard[data-theme="0"]{--accent:#48a12d;--scene1:#e8f7df;--scene2:#f8fff4}
+#mainCard[data-theme="1"]{--accent:#ee8b28;--scene1:#fff0d7;--scene2:#fff9ed}
+#mainCard[data-theme="2"]{--accent:#4f79e8;--scene1:#e7edff;--scene2:#f7f9ff}
+#mainCard[data-theme="3"]{--accent:#db5d82;--scene1:#ffe7ef;--scene2:#fff7fa}
+#mainCard[data-theme="4"]{--accent:#8a62cf;--scene1:#efe7ff;--scene2:#faf7ff}
+#mainCard[data-theme="5"]{--accent:#20a39e;--scene1:#def7f4;--scene2:#f5fffd}
+
+#learnScreen .main-card{
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 16% 15%,color-mix(in srgb,var(--accent) 11%,transparent),transparent 22%),
+    radial-gradient(circle at 84% 78%,color-mix(in srgb,var(--accent) 8%,transparent),transparent 20%),
+    linear-gradient(160deg,#fff 0%,var(--scene2) 100%)!important;
+}
+#learnScreen .main-card::after{
+  content:"";
+  position:absolute;
+  width:140px;height:140px;
+  border-radius:42% 58% 53% 47%;
+  right:-52px;bottom:-58px;
+  background:color-mix(in srgb,var(--accent) 8%,transparent);
+  animation:shapeMorph 8s ease-in-out infinite;
+}
+@keyframes shapeMorph{
+  0%,100%{transform:rotate(0) scale(1);border-radius:42% 58% 53% 47%}
+  50%{transform:rotate(16deg) scale(1.08);border-radius:56% 44% 61% 39%}
+}
+
+/* more playful card motion */
+#mainCard.card-change{animation:cardSwing .42s cubic-bezier(.18,.88,.2,1)}
+#mainImage.image-change{animation:itemBounce .56s cubic-bezier(.16,.92,.24,1)}
+#upperLetter.letter-change{animation:letterDrop .45s cubic-bezier(.18,.95,.25,1)}
+.word.word-change{animation:wordReveal .42s cubic-bezier(.2,.9,.2,1)}
+@keyframes cardSwing{
+  0%{transform:translateX(22px) rotate(1.5deg) scale(.965);opacity:.45}
+  65%{transform:translateX(-4px) rotate(-.5deg) scale(1.01);opacity:1}
+  100%{transform:none}
+}
+@keyframes itemBounce{
+  0%{transform:scale(.58) translateY(14px) rotate(-5deg);opacity:0}
+  58%{transform:scale(1.10) translateY(-4px) rotate(2deg);opacity:1}
+  82%{transform:scale(.97) translateY(1px)}
+  100%{transform:scale(1)}
+}
+@keyframes letterDrop{
+  0%{transform:translateY(-18px) scale(.8);opacity:0}
+  70%{transform:translateY(3px) scale(1.06);opacity:1}
+  100%{transform:none}
+}
+@keyframes wordReveal{
+  0%{letter-spacing:.12em;opacity:0;transform:translateY(9px)}
+  100%{letter-spacing:-.03em;opacity:1;transform:none}
+}
+
+/* speaker waves */
+#soundBtn{position:absolute;overflow:visible}
+#soundBtn.sound-animate::before,
+#soundBtn.sound-animate::after{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border:3px solid var(--accent);
+  border-radius:50%;
+  opacity:0;
+  animation:waveOut .65s ease-out;
+}
+#soundBtn.sound-animate::after{animation-delay:.12s}
+@keyframes waveOut{
+  0%{opacity:.72;transform:scale(.65)}
+  100%{opacity:0;transform:scale(1.65)}
+}
+
+/* progress path */
+.journey{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:20px;margin:0 0 3px;
+}
+.journey-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#ddd8d0;
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.07);
+  transition:.25s;
+}
+.journey-dot.done{background:var(--accent);transform:scale(1.12)}
+.journey-star{
+  font-size:18px;
+  filter:grayscale(1);opacity:.3;
+  transform:scale(.85);
+  transition:.3s;
+}
+.journey-star.active{
+  filter:none;opacity:1;
+  transform:scale(1.2) rotate(-6deg);
+  animation:starPulse 1s ease-in-out infinite alternate;
+}
+@keyframes starPulse{to{transform:scale(1.32) rotate(6deg)}}
+
+/* home screen: more like two game zones */
+#homeScreen .mode-card{
+  min-height:128px;
+  border-width:3px;
+}
+#homeScreen .mode-card.learn{
+  background:
+    radial-gradient(circle at 84% 18%,rgba(255,255,255,.5),transparent 18%),
+    linear-gradient(145deg,#e6f6db,#d9efca);
+}
+#homeScreen .mode-card.play{
+  background:
+    radial-gradient(circle at 80% 18%,rgba(255,255,255,.5),transparent 18%),
+    linear-gradient(145deg,#fff0d6,#ffdfac);
+}
+#homeScreen .mode-card::before{
+  content:"";
+  position:absolute;
+  width:70px;height:70px;border-radius:50%;
+  right:16px;top:12px;
+  background:rgba(255,255,255,.23);
+  animation:zonePulse 3s ease-in-out infinite;
+}
+@keyframes zonePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+/* reward fly animation */
+.reward-fly{
+  position:fixed;
+  z-index:50;
+  font-size:30px;
+  pointer-events:none;
+  animation:rewardFly .9s cubic-bezier(.22,.8,.22,1) forwards;
+}
+@keyframes rewardFly{
+  0%{opacity:0;transform:translateY(15px) scale(.6) rotate(-12deg)}
+  30%{opacity:1;transform:translateY(-10px) scale(1.15) rotate(8deg)}
+  100%{opacity:0;transform:translateY(-110px) scale(.7) rotate(22deg)}
+}
+
+/* preserve one-screen fit */
+@media(max-height:820px){
+  .learn-robot{top:57px}
+  .robot-speech{display:none}
+  #learnScreen .main-card{padding-top:6px}
+}
+@media(max-height:750px){
+  .learn-robot{display:none}
+}
