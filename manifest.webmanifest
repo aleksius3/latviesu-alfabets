@@ -3,7 +3,7 @@
   "short_name":"Latviešu ABC",
   "description":"Latviešu alfabēts ar attēliem, skaņu un spēlēm.",
   "lang":"lv",
-  "start_url":"./?v=8",
+  "start_url":"./?v=8.1",
   "scope":"./",
   "display":"standalone",
   "orientation":"portrait",

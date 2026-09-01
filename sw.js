@@ -1,4 +1,4 @@
-const MEDIA_CACHE="latviesu-abc-media-v8";
+const MEDIA_CACHE="latviesu-abc-media-v81";
 const MEDIA=[
   "./audio/arbuzs.mp3",
   "./audio/abols.mp3",

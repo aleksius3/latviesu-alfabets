@@ -366,3 +366,105 @@ body{
   .mascot-wrap{left:12px;bottom:12px}
   .mascot{width:46px;height:46px;font-size:29px}
 }
+
+
+/* ===== V8.1 MENU BUTTON ANIMATIONS ===== */
+
+.mode-card{
+  transform-origin:center;
+  will-change:transform, box-shadow, filter;
+  transition:
+    transform .18s cubic-bezier(.2,.8,.2,1),
+    box-shadow .18s ease,
+    filter .18s ease;
+  animation:menuCardIn .52s cubic-bezier(.16,.84,.24,1) both;
+}
+
+.mode-card:nth-child(1){animation-delay:.08s}
+.mode-card:nth-child(2){animation-delay:.16s}
+
+.mode-card:hover{
+  transform:translateY(-4px) scale(1.025);
+}
+
+.mode-card:active{
+  transform:translateY(1px) scale(.955);
+  filter:brightness(.98);
+}
+
+.mode-card .mode-icon{
+  transition:transform .2s cubic-bezier(.2,.9,.25,1);
+}
+
+.mode-card:hover .mode-icon{
+  transform:scale(1.12) rotate(-4deg);
+}
+
+.mode-card:active .mode-icon{
+  transform:scale(.88) rotate(3deg);
+}
+
+.mode-card.tap-anim{
+  animation:menuTap .34s cubic-bezier(.2,.85,.25,1);
+}
+
+.mode-card.tap-anim .mode-icon{
+  animation:iconBounce .38s cubic-bezier(.2,.9,.25,1);
+}
+
+.game-card{
+  transition:
+    transform .18s cubic-bezier(.2,.8,.2,1),
+    box-shadow .18s ease,
+    border-color .18s ease;
+  animation:gameCardIn .45s cubic-bezier(.16,.84,.24,1) both;
+}
+
+.game-card:nth-child(1){animation-delay:.05s}
+.game-card:nth-child(2){animation-delay:.11s}
+.game-card:nth-child(3){animation-delay:.17s}
+
+.game-card:hover{
+  transform:translateY(-3px) scale(1.015);
+  box-shadow:0 14px 24px rgba(0,0,0,.10);
+}
+
+.game-card:active{
+  transform:scale(.96);
+}
+
+.game-card.tap-anim{
+  animation:menuTap .34s cubic-bezier(.2,.85,.25,1);
+}
+
+.round-btn{
+  transition:transform .17s ease, box-shadow .17s ease;
+}
+.round-btn:active{
+  transform:scale(.88) rotate(-5deg);
+}
+
+@keyframes menuCardIn{
+  0%{opacity:0;transform:translateY(22px) scale(.94)}
+  65%{opacity:1;transform:translateY(-3px) scale(1.015)}
+  100%{opacity:1;transform:none}
+}
+
+@keyframes gameCardIn{
+  0%{opacity:0;transform:translateX(-18px) scale(.97)}
+  100%{opacity:1;transform:none}
+}
+
+@keyframes menuTap{
+  0%{transform:scale(1)}
+  42%{transform:scale(.93)}
+  72%{transform:scale(1.035)}
+  100%{transform:scale(1)}
+}
+
+@keyframes iconBounce{
+  0%{transform:scale(1) rotate(0)}
+  40%{transform:scale(1.22) rotate(-7deg)}
+  75%{transform:scale(.96) rotate(3deg)}
+  100%{transform:scale(1) rotate(0)}
+}

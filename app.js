@@ -167,13 +167,24 @@ function confetti(){
   setTimeout(()=>box.innerHTML="",1800);
 }
 
-$("learnBtn").onclick=()=>{showScreen("learnScreen");renderLearn()};
-$("playBtn").onclick=()=>showScreen("gameMenuScreen");
+$("learnBtn").onclick=()=>{
+  const b=$("learnBtn");
+  b.classList.remove("tap-anim"); void b.offsetWidth; b.classList.add("tap-anim");
+  setTimeout(()=>{showScreen("learnScreen");renderLearn()},180);
+};
+$("playBtn").onclick=()=>{
+  const b=$("playBtn");
+  b.classList.remove("tap-anim"); void b.offsetWidth; b.classList.add("tap-anim");
+  setTimeout(()=>showScreen("gameMenuScreen"),180);
+};
 $("homeBtn").onclick=()=>{stopAudio();showScreen("homeScreen");saveProgress()};
 $("soundBtn").onclick=e=>{e.stopPropagation();playCardAudio(cards[index])};
 $("mainCard").onclick=e=>{if(e.target.closest("#soundBtn"))return;nextLearn()};
 $("practiceNowBtn").onclick=()=>{lastPracticeMilestone=Math.floor(learned.size/5)*5;localStorage.setItem("abc-practice-milestone",lastPracticeMilestone);$("practicePrompt").classList.add("hidden");startQuiz("picture")};
-document.querySelectorAll(".game-card").forEach(b=>b.onclick=()=>b.dataset.game==="memory"?createMemory():startQuiz(b.dataset.game));
+document.querySelectorAll(".game-card").forEach(b=>b.onclick=()=>{
+  b.classList.remove("tap-anim"); void b.offsetWidth; b.classList.add("tap-anim");
+  setTimeout(()=>b.dataset.game==="memory"?createMemory():startQuiz(b.dataset.game),170);
+});
 $("quizReplayBtn").onclick=()=>playCardAudio(cards[quizCorrectIndex]);
 $("nextQuestionBtn").onclick=newQuizQuestion;$("newMemoryBtn").onclick=createMemory;
 $("celebration").onclick=()=>$("celebration").classList.add("hidden");
@@ -184,4 +195,4 @@ $("mainCard").addEventListener("touchend",e=>{if(startX===null)return;const t=e.
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();dx<0?nextLearn():prevLearn()}},{passive:false});
 
 createCarousel();saveProgress();renderLearn();showScreen("homeScreen");
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=8").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=8.1").catch(()=>{}))}
