@@ -1,14 +1,14 @@
 {
   "name": "Latviešu alfabēts bērniem",
   "short_name": "Latviešu ABC",
-  "description": "Latviešu burti, attēli, audio un mini spēles bērniem.",
+  "description": "Latviešu alfabēta kartītes bērniem ar attēliem un skaņu.",
   "lang": "lv",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fff8ec",
-  "theme_color": "#fff8ec",
+  "background_color": "#fffaf2",
+  "theme_color": "#fffaf2",
   "icons": [
     {
       "src": "icons/icon-192.png",

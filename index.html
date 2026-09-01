@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#fff8ec">
+  <meta name="theme-color" content="#fffaf2">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Latviešu ABC">
@@ -13,117 +13,38 @@
   <title>Latviešu alfabēts</title>
 </head>
 <body>
-  <main id="app">
-    <header class="app-header">
-      <button id="homeBtn" class="icon-btn hidden" type="button" aria-label="Sākums">⌂</button>
-      <div class="brand">Latviešu alfabēts</div>
-      <div id="scoreBadge" class="score-badge hidden" aria-label="Zvaigznes">⭐ <span id="scoreValue">0</span></div>
+  <main class="app">
+    <header class="topbar">
+      <div class="title">Latviešu alfabēts</div>
+      <button id="topSoundBtn" class="circle-btn" type="button" aria-label="Klausīties">🔊</button>
     </header>
 
-    <section id="homeScreen" class="screen active">
-      <div class="welcome-card">
-        <div class="welcome-mark">Ā</div>
-        <h1>Mācāmies spēlējoties!</h1>
-        <p>Burti, attēli, īsta izruna un mazas spēles.</p>
-      </div>
-      <div class="home-actions">
-        <button id="learnBtn" class="mode-btn learn" type="button">
-          <span class="mode-icon">📖</span>
-          <span><b>Mācies</b><small>Skaties, klausies un velc</small></span>
-        </button>
-        <button id="playBtn" class="mode-btn play" type="button">
-          <span class="mode-icon">🎮</span>
-          <span><b>Spēlē</b><small>Mini spēles ar zvaigznēm</small></span>
-        </button>
-      </div>
-      <div class="progress-card">
-        <div class="progress-top"><span>Apgūti burti</span><b><span id="learnedCount">0</span>/33</b></div>
-        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
-      </div>
-    </section>
+    <section class="stage">
+      <article id="mainCard" class="main-card">
+        <div class="letter-box">
+          <span id="upperLetter" class="upper-letter">A</span>
+          <span id="lowerLetter" class="lower-letter">a</span>
+        </div>
 
-    <section id="learnScreen" class="screen">
-      <div class="learn-top">
-        <div class="counter"><span id="currentNum">1</span> / <span id="totalNum">33</span></div>
-        <button id="soundBtn" class="sound-btn" type="button" aria-label="Klausīties">🔊</button>
-      </div>
+        <div class="image-box">
+          <img id="mainImage" src="images/arbuzs.webp" alt="Arbūzs">
+        </div>
 
-      <button id="mainCard" class="main-card" type="button" aria-live="polite">
-        <div class="letter-line"><span id="upperLetter" class="upper-letter">A</span><span id="lowerLetter" class="lower-letter">a</span></div>
-        <div class="main-image-wrap"><img id="mainImage" alt=""></div>
         <div id="word" class="word">Arbūzs</div>
-      </button>
 
-      <div class="learn-hint">Pieskaries vai velc ← →</div>
+        <button id="cardSoundBtn" class="sound-fab" type="button" aria-label="Atskaņot">🔊</button>
+      </article>
 
-      <div id="practicePrompt" class="practice-prompt hidden">
-        <span>⭐ Lieliski! 5 burti apskatīti.</span>
-        <button id="practiceNowBtn" type="button">Paspēlēsim!</button>
-      </div>
-
-      <div class="carousel-shell">
-        <div id="carousel" class="carousel" aria-label="Ātra burtu izvēle"></div>
-        <div class="carousel-rail"></div>
-      </div>
+      <div class="counter"><span id="currentNum">1</span> / <span id="totalNum">33</span></div>
     </section>
 
-    <section id="gameMenuScreen" class="screen">
-      <div class="section-title">
-        <h2>Izvēlies spēli</h2>
-        <p>Par pareizām atbildēm saņem ⭐</p>
-      </div>
-      <div class="game-grid">
-        <button class="game-card" data-game="picture" type="button">
-          <span>🖼️</span><b>Atrodi attēlu</b><small>Klausies un izvēlies pareizo</small>
-        </button>
-        <button class="game-card" data-game="letter" type="button">
-          <span>🔤</span><b>Atrodi burtu</b><small>Skaties attēlu un izvēlies burtu</small>
-        </button>
-        <button class="game-card" data-game="memory" type="button">
-          <span>🧠</span><b>Atrodi pāri</b><small>Savieno burtu ar attēlu</small>
-        </button>
-      </div>
-      <div class="streak-card">🔥 Sērija: <b id="menuStreak">0</b></div>
+    <section class="quick-strip-wrap">
+      <div id="quickStrip" class="quick-strip" aria-label="Ātra burtu izvēle"></div>
     </section>
 
-    <section id="quizScreen" class="screen">
-      <div class="quiz-head">
-        <div>
-          <div id="quizTitle" class="quiz-title">Atrodi attēlu</div>
-          <div class="quiz-sub">Pareizi pēc kārtas: <b id="quizStreak">0</b></div>
-        </div>
-        <button id="quizReplayBtn" class="sound-btn small" type="button" aria-label="Atkārtot skaņu">🔊</button>
-      </div>
-
-      <div id="quizPrompt" class="quiz-prompt"></div>
-      <div id="quizOptions" class="quiz-options"></div>
-      <div id="quizFeedback" class="feedback" aria-live="polite"></div>
-      <button id="nextQuestionBtn" class="next-btn hidden" type="button">Nākamais →</button>
-    </section>
-
-    <section id="memoryScreen" class="screen">
-      <div class="quiz-head">
-        <div>
-          <div class="quiz-title">Atrodi pāri</div>
-          <div class="quiz-sub">Burts ↔ attēls</div>
-        </div>
-        <div class="memory-moves">Gājieni: <b id="memoryMoves">0</b></div>
-      </div>
-      <div id="memoryGrid" class="memory-grid"></div>
-      <div id="memoryFeedback" class="feedback" aria-live="polite"></div>
-      <button id="newMemoryBtn" class="next-btn hidden" type="button">Vēlreiz 🔄</button>
-    </section>
-
-    <div id="celebration" class="celebration hidden" aria-live="polite">
-      <div class="celebrate-card">
-        <div class="big-star">⭐</div>
-        <b>Malacis!</b>
-        <span>5 pareizas atbildes pēc kārtas!</span>
-      </div>
-    </div>
-
-    <div id="confetti" class="confetti" aria-hidden="true"></div>
+    <div class="hint">Pavelc, lai ātri ritinātu</div>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
