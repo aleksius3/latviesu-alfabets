@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Latviešu ABC">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="style.css?v=7.2">
+  <link rel="stylesheet" href="style.css?v=8">
   <title>Latviešu alfabēts</title>
 </head>
 <body>
@@ -22,6 +22,12 @@
 
   <section id="homeScreen" class="screen active">
     <div class="hero-card">
+      <div class="hero-deco deco-a">A</div>
+      <div class="hero-deco deco-star">★</div>
+      <div class="mascot-wrap">
+        <div class="mascot">🤖</div>
+        <div class="speech-bubble">Sveiki! Mācīsimies burtus!</div>
+      </div>
       <div class="hero-letter">Ā</div>
       <h1>Mācāmies spēlējoties!</h1>
       <p>Burti, attēli, latviešu izruna un spēles.</p>
@@ -41,6 +47,14 @@
     <div class="progress-card">
       <div class="progress-row"><span>Apgūti burti</span><b><span id="learnedCount">0</span>/33</b></div>
       <div class="progress-track"><div id="progressFill"></div></div>
+      <div class="reward-row">
+        <span class="reward-dot" data-step="5">⭐</span>
+        <span class="reward-dot" data-step="10">⭐</span>
+        <span class="reward-dot" data-step="15">⭐</span>
+        <span class="reward-dot" data-step="20">⭐</span>
+        <span class="reward-dot" data-step="25">⭐</span>
+        <span class="reward-dot" data-step="30">⭐</span>
+      </div>
     </div>
   </section>
 
@@ -55,7 +69,11 @@
         <div id="word" class="word">Arbūzs</div>
         <button id="soundBtn" class="sound-fab" type="button" aria-label="Klausīties">🔊</button>
       </article>
-      <div class="counter"><span id="currentNum">1</span> / <span id="totalNum">33</span></div>
+      <div class="counter-pill">
+        <span id="currentNum">1</span> / <span id="totalNum">33</span>
+      </div>
+      <div class="learn-progress-track"><div id="learnProgressFill"></div></div>
+      <div id="mascotTip" class="mascot-tip"><span class="mini-mascot">🤖</span><span id="mascotTipText">Pieskaries kartītei!</span></div>
     </div>
 
     <div id="practicePrompt" class="practice-prompt hidden">
@@ -121,13 +139,14 @@
 
   <div id="celebration" class="celebration hidden">
     <div class="celebrate-card">
+      <div class="celebrate-mascot">🤖</div>
       <div class="big-star">⭐</div>
       <b>Malacis!</b>
-      <span>5 pareizas atbildes pēc kārtas!</span>
+      <span>Tu esi īsts burtu meistars!</span>
     </div>
   </div>
   <div id="confetti" class="confetti"></div>
 </main>
-<script src="app.js?v=7.2"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>

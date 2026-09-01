@@ -18,11 +18,21 @@ let learned=new Set(JSON.parse(localStorage.getItem("abc-learned")||"[]"));
 let lastPracticeMilestone=+(localStorage.getItem("abc-practice-milestone")||0);
 let currentAudio=null,currentGame=null,quizCorrectIndex=-1,quizAnswered=false,memoryState=null;
 
+const letterAudios=cards.map(card=>{
+  const a=new Audio(card.audio+"?v=73");
+  a.preload="auto";
+  a.load();
+  return a;
+});
+
 function saveProgress(){
   localStorage.setItem("abc-stars",score);localStorage.setItem("abc-streak",streak);
   localStorage.setItem("abc-learned",JSON.stringify([...learned]));
   $("scoreValue").textContent=score;$("menuStreak").textContent=streak;$("quizStreak").textContent=streak;
   $("learnedCount").textContent=learned.size;$("progressFill").style.width=`${learned.size/cards.length*100}%`;
+  document.querySelectorAll(".reward-dot").forEach(el=>{
+    el.classList.toggle("unlocked", learned.size >= +el.dataset.step);
+  });
 }
 function showScreen(id){
   screens.forEach(s=>$(s).classList.toggle("active",s===id));
@@ -33,10 +43,19 @@ function showScreen(id){
 }
 function stopAudio(){if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;currentAudio=null}}
 function playCardAudio(card){
-  stopAudio();currentAudio=new Audio(card.audio);currentAudio.preload="auto";currentAudio.play().catch(()=>{});
+  stopAudio();
+  const i=cards.indexOf(card);
+  const a=i>=0?letterAudios[i]:new Audio(card.audio+"?v=73");
+  currentAudio=a;
+  try{
+    a.pause();
+    a.currentTime=0;
+    const p=a.play();
+    if(p&&p.catch)p.catch(()=>{});
+  }catch(e){}
 }
-const correctSfx=new Audio("audio/correct.wav?v=72");
-const wrongSfx=new Audio("audio/wrong.wav?v=72");
+const correctSfx=new Audio("audio/correct.wav?v=73");
+const wrongSfx=new Audio("audio/wrong.wav?v=73");
 correctSfx.preload="auto"; wrongSfx.preload="auto";
 
 function playSfx(audio){
@@ -65,6 +84,9 @@ function scrollActiveMini(){
 function renderLearn(){
   const item=cards[index];
   $("upperLetter").textContent=item.upper;$("lowerLetter").textContent=item.lower;$("word").textContent=item.word;
+  if($("learnProgressFill")) $("learnProgressFill").style.width=`${(index+1)/cards.length*100}%`;
+  const tips=["Pieskaries kartītei!","Pavelc pa kreisi vai pa labi!","Nospied 🔊 un atkārto!","Tu vari izvēlēties burtu apakšā!"];
+  if($("mascotTipText")) $("mascotTipText").textContent=tips[index%tips.length];
   $("mainImage").src=item.image;$("mainImage").alt=item.word;$("currentNum").textContent=index+1;$("totalNum").textContent=cards.length;
   localStorage.setItem("abc-index",index);learned.add(index);saveProgress();
   [...$("carousel").children].forEach((el,i)=>el.classList.toggle("active",i===index));scrollActiveMini();
@@ -101,7 +123,8 @@ function newQuizQuestion(){
 function answerQuiz(btn,chosen){
   if(quizAnswered)return;
   if(chosen===quizCorrectIndex){
-    quizAnswered=true;btn.classList.add("correct");score++;streak++;$("quizFeedback").textContent="Pareizi! ⭐";
+    quizAnswered=true;btn.classList.add("correct");score++;streak++;
+    $("quizFeedback").textContent=["Pareizi! ⭐","Malacis! 🌟","Super! 🎉","Lieliski! ⭐"][streak%4];
     $("quizFeedback").className="feedback good";$("nextQuestionBtn").classList.remove("hidden");playSuccessTone();saveProgress();
     if(streak%5===0)celebrate();
   }else{
@@ -161,4 +184,4 @@ $("mainCard").addEventListener("touchend",e=>{if(startX===null)return;const t=e.
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();dx<0?nextLearn():prevLearn()}},{passive:false});
 
 createCarousel();saveProgress();renderLearn();showScreen("homeScreen");
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=7.2").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=8").catch(()=>{}))}
