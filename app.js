@@ -37,11 +37,36 @@ function playCardAudio(card){
 }
 function playSuccessTone(){
   try{
-    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const ctx=new AC(),now=ctx.currentTime;
-    [523.25,659.25,783.99].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=f;
-      g.gain.setValueAtTime(.0001,now+i*.08);g.gain.exponentialRampToValueAtTime(.10,now+i*.08+.01);
-      g.gain.exponentialRampToValueAtTime(.0001,now+i*.08+.20);o.connect(g).connect(ctx.destination);o.start(now+i*.08);o.stop(now+i*.08+.22)});
-    setTimeout(()=>ctx.close(),650);
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return;
+    const ctx=new AC(),now=ctx.currentTime;
+    [523.25,659.25,783.99].forEach((f,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type="sine"; o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,now+i*.075);
+      g.gain.exponentialRampToValueAtTime(.13,now+i*.075+.01);
+      g.gain.exponentialRampToValueAtTime(.0001,now+i*.075+.22);
+      o.connect(g).connect(ctx.destination);
+      o.start(now+i*.075); o.stop(now+i*.075+.24);
+    });
+    setTimeout(()=>ctx.close(),700);
+  }catch(e){}
+}
+function playWrongTone(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return;
+    const ctx=new AC(),now=ctx.currentTime;
+    [220,165].forEach((f,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type="triangle"; o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,now+i*.11);
+      g.gain.exponentialRampToValueAtTime(.10,now+i*.11+.01);
+      g.gain.exponentialRampToValueAtTime(.0001,now+i*.11+.18);
+      o.connect(g).connect(ctx.destination);
+      o.start(now+i*.11); o.stop(now+i*.11+.20);
+    });
+    setTimeout(()=>ctx.close(),500);
   }catch(e){}
 }
 function createCarousel(){
@@ -99,7 +124,7 @@ function answerQuiz(btn,chosen){
     $("quizFeedback").className="feedback good";$("nextQuestionBtn").classList.remove("hidden");playSuccessTone();saveProgress();
     if(streak%5===0)celebrate();
   }else{
-    btn.classList.add("wrong");streak=0;$("quizFeedback").textContent="Mēģini vēlreiz 🙂";$("quizFeedback").className="feedback try";
+    btn.classList.add("wrong");playWrongTone();streak=0;$("quizFeedback").textContent="Mēģini vēlreiz 🙂";$("quizFeedback").className="feedback try";
     saveProgress();setTimeout(()=>btn.classList.remove("wrong"),520);
   }
 }
@@ -124,7 +149,7 @@ function flipMemory(idx,el){
       score++;streak++;saveProgress();playSuccessTone();if(streak%5===0)celebrate();
       if(s.matches===3){$("memoryFeedback").textContent="Visi pāri atrasti! ⭐";$("memoryFeedback").className="feedback good";$("newMemoryBtn").classList.remove("hidden")}},350);
   }else{
-    streak=0;saveProgress();setTimeout(()=>{elA.classList.remove("flipped");elB.classList.remove("flipped");s.first=s.second=null;s.lock=false},720);
+    playWrongTone();streak=0;saveProgress();setTimeout(()=>{elA.classList.remove("flipped");elB.classList.remove("flipped");s.first=s.second=null;s.lock=false},720);
   }
 }
 function celebrate(){
@@ -155,4 +180,4 @@ $("mainCard").addEventListener("touchend",e=>{if(startX===null)return;const t=e.
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();dx<0?nextLearn():prevLearn()}},{passive:false});
 
 createCarousel();saveProgress();renderLearn();showScreen("homeScreen");
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=7").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=7.1").catch(()=>{}))}
