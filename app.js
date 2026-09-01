@@ -83,7 +83,12 @@ function scrollActiveMini(){
 }
 function renderLearn(){
   const item=cards[index];
+  const mc=$("mainCard");
+  mc.dataset.theme=String(index%6);
   $("upperLetter").textContent=item.upper;$("lowerLetter").textContent=item.lower;$("word").textContent=item.word;
+  mc.classList.remove("card-change");$("mainImage").classList.remove("image-change");$("upperLetter").classList.remove("letter-change");
+  void mc.offsetWidth;
+  mc.classList.add("card-change");$("mainImage").classList.add("image-change");$("upperLetter").classList.add("letter-change");
   if($("learnProgressFill")) $("learnProgressFill").style.width=`${(index+1)/cards.length*100}%`;
   const tips=["Pieskaries kartītei!","Pavelc pa kreisi vai pa labi!","Nospied 🔊 un atkārto!","Tu vari izvēlēties burtu apakšā!"];
   if($("mascotTipText")) $("mascotTipText").textContent=tips[index%tips.length];
@@ -178,7 +183,12 @@ $("playBtn").onclick=()=>{
   setTimeout(()=>showScreen("gameMenuScreen"),180);
 };
 $("homeBtn").onclick=()=>{stopAudio();showScreen("homeScreen");saveProgress()};
-$("soundBtn").onclick=e=>{e.stopPropagation();playCardAudio(cards[index])};
+$("soundBtn").onclick=e=>{
+  e.stopPropagation();
+  const b=$("soundBtn");
+  b.classList.remove("sound-animate");void b.offsetWidth;b.classList.add("sound-animate");
+  playCardAudio(cards[index]);
+};
 $("mainCard").onclick=e=>{if(e.target.closest("#soundBtn"))return;nextLearn()};
 $("practiceNowBtn").onclick=()=>{lastPracticeMilestone=Math.floor(learned.size/5)*5;localStorage.setItem("abc-practice-milestone",lastPracticeMilestone);$("practicePrompt").classList.add("hidden");startQuiz("picture")};
 document.querySelectorAll(".game-card").forEach(b=>b.onclick=()=>{
@@ -195,4 +205,4 @@ $("mainCard").addEventListener("touchend",e=>{if(startX===null)return;const t=e.
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();dx<0?nextLearn():prevLearn()}},{passive:false});
 
 createCarousel();saveProgress();renderLearn();showScreen("homeScreen");
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=8.1").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=8.2").catch(()=>{}))}

@@ -1,2 +1,2 @@
-V8: visual upgrade — mascot, richer home screen, reward milestones, improved progress, animated cards, richer game feedback.
-Upload ALL contents to the ROOT of the GitHub repository, replacing the old version.
+V8.2 fixes: transparent object images, six rotating card colors, visible speaker animation, stronger card transitions, one-screen iPhone learning layout, floating practice toast.
+Replace ALL files in the GitHub repository root.
