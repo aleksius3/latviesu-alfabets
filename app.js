@@ -35,40 +35,21 @@ function stopAudio(){if(currentAudio){currentAudio.pause();currentAudio.currentT
 function playCardAudio(card){
   stopAudio();currentAudio=new Audio(card.audio);currentAudio.preload="auto";currentAudio.play().catch(()=>{});
 }
-function playSuccessTone(){
+const correctSfx=new Audio("audio/correct.wav?v=72");
+const wrongSfx=new Audio("audio/wrong.wav?v=72");
+correctSfx.preload="auto"; wrongSfx.preload="auto";
+
+function playSfx(audio){
   try{
-    const AC=window.AudioContext||window.webkitAudioContext;
-    if(!AC)return;
-    const ctx=new AC(),now=ctx.currentTime;
-    [523.25,659.25,783.99].forEach((f,i)=>{
-      const o=ctx.createOscillator(),g=ctx.createGain();
-      o.type="sine"; o.frequency.value=f;
-      g.gain.setValueAtTime(.0001,now+i*.075);
-      g.gain.exponentialRampToValueAtTime(.13,now+i*.075+.01);
-      g.gain.exponentialRampToValueAtTime(.0001,now+i*.075+.22);
-      o.connect(g).connect(ctx.destination);
-      o.start(now+i*.075); o.stop(now+i*.075+.24);
-    });
-    setTimeout(()=>ctx.close(),700);
+    audio.pause();
+    audio.currentTime=0;
+    const p=audio.play();
+    if(p&&p.catch)p.catch(()=>{});
   }catch(e){}
 }
-function playWrongTone(){
-  try{
-    const AC=window.AudioContext||window.webkitAudioContext;
-    if(!AC)return;
-    const ctx=new AC(),now=ctx.currentTime;
-    [220,165].forEach((f,i)=>{
-      const o=ctx.createOscillator(),g=ctx.createGain();
-      o.type="triangle"; o.frequency.value=f;
-      g.gain.setValueAtTime(.0001,now+i*.11);
-      g.gain.exponentialRampToValueAtTime(.10,now+i*.11+.01);
-      g.gain.exponentialRampToValueAtTime(.0001,now+i*.11+.18);
-      o.connect(g).connect(ctx.destination);
-      o.start(now+i*.11); o.stop(now+i*.11+.20);
-    });
-    setTimeout(()=>ctx.close(),500);
-  }catch(e){}
-}
+function playSuccessTone(){ playSfx(correctSfx); }
+function playWrongTone(){ playSfx(wrongSfx); }
+
 function createCarousel(){
   const c=$("carousel");c.innerHTML="";
   cards.forEach((item,i)=>{
@@ -180,4 +161,4 @@ $("mainCard").addEventListener("touchend",e=>{if(startX===null)return;const t=e.
   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();dx<0?nextLearn():prevLearn()}},{passive:false});
 
 createCarousel();saveProgress();renderLearn();showScreen("homeScreen");
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=7.1").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=7.2").catch(()=>{}))}
