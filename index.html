@@ -3,80 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#f7f3e9">
+<meta name="theme-color" content="#dff2ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Latviešu ABC">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=13">
 <title>Latviešu alfabēts</title>
 </head>
 <body>
 <main id="app">
-<header class="topbar">
-  <button id="homeBtn" class="round hidden">⌂</button>
-  <div class="logo">Latviešu alfabēts</div>
-  <div id="score" class="score hidden">⭐ <b id="scoreNum">0</b></div>
-</header>
+  <div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
 
-<section id="home" class="screen active">
-  <div class="hero">
-    <div><small>MĀCIES • KLAUSIES • SPĒLĒ</small><h1>Latviešu<br><em>burti</em></h1><p>33 krāsainas kartītes ar skaņu.</p></div>
-    <span class="robot">🤖</span>
-  </div>
-  <div class="home-buttons">
-    <button id="learnBtn" class="home-card learn-card"><img src="images/abols.webp"><span><small>MĀCIES</small><b>Skaties kartītes</b></span></button>
-    <button id="playBtn" class="home-card play-card"><img src="images/zirafe.webp"><span><small>SPĒLĒ</small><b>Mini spēles</b></span></button>
-  </div>
-  <div class="progress-card"><div><span>Apgūti burti</span><b><span id="learned">0</span>/33</b></div><div class="progress"><i id="homeProgress"></i></div></div>
-</section>
+  <header class="topbar">
+    <button id="homeBtn" class="circle-btn hidden" aria-label="Sākums">⌂</button>
+    <div class="brand"><b>Latviešu alfabēts</b><small>Mācies · Spēlē · Atklāj!</small></div>
+    <button id="soundToggle" class="sound-toggle" aria-label="Ieslēgt vai izslēgt skaņu">
+      <span class="sound-icon">🔊</span><i class="toggle-knob"></i>
+    </button>
+  </header>
 
-<section id="learn" class="screen">
-  <div class="learn-layout">
-    <article id="card" class="card">
-      <img id="cardImg" class="card-img">
-      <div class="shade"></div>
-      <div class="letters"><span id="upper">A</span><small id="lower">a</small></div>
-      <button id="soundBtn" class="sound" aria-label="Atkārtot skaņu"><span>🔊</span><i></i><i></i></button>
-      <div class="caption"><b id="word">Aita</b><small id="counter">1 / 33</small></div>
-    </article>
-
-    <div class="learn-info">
-      <div class="bar"><i id="learnProgress"></i></div>
-      <span id="hint">Pavelc kartīti ← →</span>
+  <section id="home" class="screen active">
+    <div class="welcome-card">
+      <div class="owl">🦉</div>
+      <div class="wood-sign">
+        <b>Sveiks!</b>
+        <span>Mācies burtus,<br>klausies un spēlē!</span>
+      </div>
     </div>
 
-    <div class="rail-box">
-      <div id="rail" class="rail"></div>
+    <div class="home-actions">
+      <button id="learnBtn" class="home-action learn-action">
+        <div class="stack">
+          <img src="images/abols.webp"><img src="images/aita.webp">
+        </div>
+        <div><b>Mācies</b><span>Skaties, klausies, iegaumē!</span></div>
+        <i>›</i>
+      </button>
+
+      <button id="playBtn" class="home-action play-action">
+        <span class="puzzle">🧩</span>
+        <div><b>Spēlē</b><span>Pārbaudi savas zināšanas!</span></div>
+        <i>›</i>
+      </button>
     </div>
-  </div>
-</section>
 
-<section id="gameMenu" class="screen">
-  <div class="game-head"><span>🎮</span><div><small>IZVĒLIES SPĒLI</small><h2>Spēlēsim!</h2></div></div>
-  <div class="game-list">
-    <button class="game-tile" data-game="picture">🖼️ <span><b>Atrodi attēlu</b><small>Klausies un izvēlies</small></span><i>→</i></button>
-    <button class="game-tile" data-game="letter">🔤 <span><b>Atrodi burtu</b><small>Skaties un izvēlies</small></span><i>→</i></button>
-    <button class="game-tile" data-game="memory">🧠 <span><b>Atrodi pāri</b><small>Burts + attēls</small></span><i>→</i></button>
-  </div>
-</section>
+    <div class="home-stats">
+      <div><span>Progress</span><b><span id="learnedCount">0</span>/33</b></div>
+      <div class="stat-bar"><i id="homeProgress"></i></div>
+      <div class="stat-icons"><span>📊</span><span>🏆</span><span>⭐</span><span>ℹ️</span></div>
+    </div>
+  </section>
 
-<section id="quiz" class="screen">
-  <div class="quiz-head"><div><small>SPĒLE</small><h2 id="quizTitle">Atrodi attēlu</h2></div><button id="replay" class="round">🔊</button></div>
-  <div id="quizPrompt" class="quiz-prompt"></div>
-  <div id="quizOptions" class="quiz-options"></div>
-  <div id="feedback" class="feedback"></div>
-  <button id="nextQ" class="next hidden">Nākamais →</button>
-</section>
+  <section id="learn" class="screen">
+    <div class="learn-shell">
+      <div class="learn-topline">
+        <button id="prevBtn" class="nav-btn">‹</button>
+        <div class="step"><b id="counter">1 / 33</b><div class="step-dots" id="stepDots"></div></div>
+        <button id="nextBtn" class="nav-btn">›</button>
+      </div>
 
-<section id="memory" class="screen">
-  <div class="quiz-head"><div><small>ATRODI PĀRI</small><h2>Burts + attēls</h2></div><div class="moves">Gājieni <b id="moves">0</b></div></div>
-  <div id="memoryGrid" class="memory-grid"></div>
-  <div id="memoryFeedback" class="feedback"></div>
-  <button id="newMemory" class="next hidden">Vēlreiz 🔄</button>
-</section>
+      <div class="stage">
+        <article id="mainCard" class="main-card">
+          <img id="mainImg" class="main-img" alt="">
+          <div class="card-shade"></div>
+          <div class="big-letter"><span id="upper">A</span><small id="lower">a</small></div>
+          <div class="word-pill" id="word">Aita</div>
+        </article>
+      </div>
+
+      <div class="thumb-box">
+        <div id="rail" class="rail"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gameMenu" class="screen">
+    <div class="game-title"><span>🎮</span><div><small>IZVĒLIES SPĒLI</small><b>Spēlēsim!</b></div></div>
+    <div class="game-list">
+      <button class="game-card" data-game="picture"><span>🖼️</span><div><b>Atrodi attēlu</b><small>Klausies un izvēlies</small></div><i>›</i></button>
+      <button class="game-card" data-game="letter"><span>🔤</span><div><b>Atrodi burtu</b><small>Skaties un izvēlies</small></div><i>›</i></button>
+      <button class="game-card" data-game="memory"><span>🧠</span><div><b>Atrodi pāri</b><small>Burts + attēls</small></div><i>›</i></button>
+    </div>
+  </section>
+
+  <section id="quiz" class="screen">
+    <div class="quiz-head"><div><small>SPĒLE</small><h2 id="quizTitle">Atrodi attēlu</h2></div><button id="replayBtn" class="circle-btn">🔊</button></div>
+    <div id="quizPrompt" class="quiz-prompt"></div>
+    <div id="quizOptions" class="quiz-options"></div>
+    <div id="feedback" class="feedback"></div>
+    <button id="nextQuestion" class="next-question hidden">Nākamais →</button>
+  </section>
+
+  <section id="memory" class="screen">
+    <div class="quiz-head"><div><small>ATRODI PĀRI</small><h2>Burts + attēls</h2></div><div class="moves">Gājieni <b id="moves">0</b></div></div>
+    <div id="memoryGrid" class="memory-grid"></div>
+    <div id="memoryFeedback" class="feedback"></div>
+    <button id="newMemory" class="next-question hidden">Vēlreiz 🔄</button>
+  </section>
 </main>
-<script src="app.js?v=12"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>

@@ -2,12 +2,12 @@
   "name": "Latviešu alfabēts bērniem",
   "short_name": "Latviešu ABC",
   "lang": "lv",
-  "start_url": "./?v=12",
+  "start_url": "./?v=13",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f7f3e9",
-  "theme_color": "#f7f3e9",
+  "background_color": "#dff2ff",
+  "theme_color": "#dff2ff",
   "icons": [
     {
       "src": "icons/icon-192.png",
