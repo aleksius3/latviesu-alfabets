@@ -1,117 +1,79 @@
-const MEDIA_CACHE="latviesu-abc-media-v9";
-const MEDIA=[
-  "./audio/arbuzs.mp3",
-  "./audio/abols.mp3",
-  "./audio/balons.mp3",
-  "./audio/citrons.mp3",
-  "./audio/cuska.mp3",
-  "./audio/durvis.mp3",
-  "./audio/ezers.mp3",
-  "./audio/ezelis.mp3",
-  "./audio/flamings.mp3",
-  "./audio/gekons.mp3",
-  "./audio/gitara.mp3",
-  "./audio/haizivs.mp3",
-  "./audio/instrumenti.mp3",
-  "./audio/ilens.mp3",
-  "./audio/jers.mp3",
-  "./audio/kurpe.mp3",
-  "./audio/kiploks.mp3",
-  "./audio/lusis.mp3",
-  "./audio/lipa.mp3",
-  "./audio/maja.mp3",
-  "./audio/nakts.mp3",
-  "./audio/nau.mp3",
-  "./audio/ola.mp3",
-  "./audio/pulkstenis.mp3",
-  "./audio/robots.mp3",
-  "./audio/siksparnis.mp3",
-  "./audio/sokolade.mp3",
-  "./audio/tomats.mp3",
-  "./audio/ugunsdzesejs.mp3",
-  "./audio/usas.mp3",
-  "./audio/varaviksne.mp3",
-  "./audio/zilonis.mp3",
-  "./audio/zirafe.mp3",
-  "./images/arbuzs.webp",
-  "./images/abols.webp",
-  "./images/balons.webp",
-  "./images/citrons.webp",
-  "./images/cuska.webp",
-  "./images/durvis.webp",
-  "./images/ezers.webp",
-  "./images/ezelis.webp",
-  "./images/flamings.webp",
-  "./images/gekons.webp",
-  "./images/gitara.webp",
-  "./images/haizivs.webp",
-  "./images/instrumenti.webp",
-  "./images/ilens.webp",
-  "./images/jers.webp",
-  "./images/kurpe.webp",
-  "./images/kiploks.webp",
-  "./images/lusis.webp",
-  "./images/lipa.webp",
-  "./images/maja.webp",
-  "./images/nakts.webp",
-  "./images/nau.webp",
-  "./images/ola.webp",
-  "./images/pulkstenis.webp",
-  "./images/robots.webp",
-  "./images/siksparnis.webp",
-  "./images/sokolade.webp",
-  "./images/tomats.webp",
-  "./images/ugunsdzesejs.webp",
-  "./images/usas.webp",
-  "./images/varaviksne.webp",
-  "./images/zilonis.webp",
-  "./images/zirafe.webp",
-  "./audio/correct.wav",
-  "./audio/wrong.wav",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
-];
-
-self.addEventListener("install",event=>{
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(MEDIA_CACHE).then(cache =>
-      Promise.allSettled(MEDIA.map(url => cache.add(url)))
-    )
-  );
-});
-
-self.addEventListener("activate",event=>{
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(k => k !== MEDIA_CACHE).map(k => caches.delete(k))
-    )).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener("fetch",event=>{
-  if(event.request.method !== "GET") return;
-
-  const url = new URL(event.request.url);
-  const isMedia =
-    url.pathname.includes("/audio/") ||
-    url.pathname.includes("/images/") ||
-    url.pathname.includes("/icons/");
-
-  if(isMedia){
-    event.respondWith(
-      caches.match(event.request, {ignoreSearch:true}).then(hit =>
-        hit || fetch(event.request).then(resp => {
-          const copy = resp.clone();
-          caches.open(MEDIA_CACHE).then(cache => cache.put(event.request, copy));
-          return resp;
-        })
-      )
-    );
-    return;
-  }
-
-  event.respondWith(
-    fetch(event.request, {cache:"no-store"}).catch(() => caches.match(event.request))
-  );
+const MEDIA_CACHE="abc-v11-media";
+const MEDIA=["./images/aita.webp",
+"./images/abols.webp",
+"./images/bumba.webp",
+"./images/calis.webp",
+"./images/cuska.webp",
+"./images/davana.webp",
+"./images/ezis.webp",
+"./images/ezelis.webp",
+"./images/flauta.webp",
+"./images/govs.webp",
+"./images/gitara.webp",
+"./images/hameleons.webp",
+"./images/instrumenti.webp",
+"./images/ikskis.webp",
+"./images/jura.webp",
+"./images/kakis.webp",
+"./images/kirbis.webp",
+"./images/lacis.webp",
+"./images/lipa.webp",
+"./images/maja.webp",
+"./images/nazis.webp",
+"./images/nau.webp",
+"./images/oga.webp",
+"./images/pile.webp",
+"./images/ritenis.webp",
+"./images/suns.webp",
+"./images/salle.webp",
+"./images/taurenis.webp",
+"./images/uguns.webp",
+"./images/udens.webp",
+"./images/vavere.webp",
+"./images/zivs.webp",
+"./images/zirafe.webp",
+"./audio/A_aita.mp3",
+"./audio/AA_abols.mp3",
+"./audio/B_bumba.mp3",
+"./audio/C_calis.mp3",
+"./audio/CC_cuska.mp3",
+"./audio/D_davana.mp3",
+"./audio/E_ezis.mp3",
+"./audio/EE_ezelis.mp3",
+"./audio/F_flauta.mp3",
+"./audio/G_govs.mp3",
+"./audio/GG_gitara.mp3",
+"./audio/H_hameleons.mp3",
+"./audio/I_instrumenti.mp3",
+"./audio/II_ikskis.mp3",
+"./audio/J_jura.mp3",
+"./audio/K_kakis.mp3",
+"./audio/KK_kirbis.mp3",
+"./audio/L_lacis.mp3",
+"./audio/LL_lipa.mp3",
+"./audio/M_maja.mp3",
+"./audio/N_nazis.mp3",
+"./audio/NN_nau.mp3",
+"./audio/O_oga.mp3",
+"./audio/P_pile.mp3",
+"./audio/R_ritenis.mp3",
+"./audio/S_suns.mp3",
+"./audio/SS_salle.mp3",
+"./audio/T_taurenis.mp3",
+"./audio/U_uguns.mp3",
+"./audio/UU_udens.mp3",
+"./audio/V_vavere.mp3",
+"./audio/Z_zivs.mp3",
+"./audio/ZZ_zirafe.mp3",
+"./audio/correct.wav",
+"./audio/wrong.wav",
+"./icons/icon-192.png",
+"./icons/icon-512.png"];
+self.addEventListener("install",e=>{self.skipWaiting();e.waitUntil(caches.open(MEDIA_CACHE).then(c=>Promise.allSettled(MEDIA.map(u=>c.add(u)))))}); 
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==MEDIA_CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
+self.addEventListener("fetch",e=>{
+ if(e.request.method!=="GET")return;
+ const u=new URL(e.request.url),media=u.pathname.includes("/images/")||u.pathname.includes("/audio/")||u.pathname.includes("/icons/");
+ if(media){e.respondWith(caches.match(e.request,{ignoreSearch:true}).then(h=>h||fetch(e.request).then(r=>{const q=r.clone();caches.open(MEDIA_CACHE).then(c=>c.put(e.request,q));return r})));return}
+ e.respondWith(fetch(e.request,{cache:"no-store"}).catch(()=>caches.match(e.request)));
 });
