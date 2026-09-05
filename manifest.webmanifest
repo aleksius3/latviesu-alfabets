@@ -1,9 +1,8 @@
 {
   "name": "Latviešu alfabēts bērniem",
   "short_name": "Latviešu ABC",
-  "description": "Latviešu alfabēts ar 33 krāsainām kartītēm, skaņu un spēlēm.",
   "lang": "lv",
-  "start_url": "./?v=11",
+  "start_url": "./?v=12",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
